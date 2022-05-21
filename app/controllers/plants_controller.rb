@@ -18,6 +18,16 @@ class PlantsController < ApplicationController
     render json: plant, status: :created
   end
 
+  def update
+    plant = Plant.find_by(id: params[:id])
+    if plant
+      plant.update(plant_params)
+      render json: plant
+    else
+      render json: {error: plant.errors.full_messages}
+    end
+  end
+
   private
 
   def plant_params
